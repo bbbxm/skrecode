@@ -45,7 +45,8 @@ const couponCodes = [
   "RINKARMA",
   "FORTAGNIA",
   "SEVENVSDARK",
-  "777SENARE46.PUKIDANCE",
+  "777SENARE",
+  "PUKIDANCE",
   "HTRIBERANES",
   "JJOLJACK",
 ];
