@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
     console.log("pid", pid);
 
-    const baseUrl = "https://coupon.netmarble.com/api/coupon/reward";
+    const baseUrl = "https://coupon.netmarble.com/api/coupon";
     const staticParams = {
       gameCode: "tskgb",
       langCd: "ZH_CN",
@@ -74,16 +74,23 @@ export async function POST(request: Request) {
     const results = await Promise.all(
       couponCodes.reverse().map(async (couponCode: string) => {
         try {
-          const url = new URL(baseUrl);
-          url.searchParams.append("gameCode", staticParams.gameCode);
-          url.searchParams.append("couponCode", couponCode);
-          url.searchParams.append("langCd", staticParams.langCd);
-          url.searchParams.append("pid", staticParams.pid);
+          // const url = new URL(baseUrl);
+          // url.searchParams.append("gameCode", staticParams.gameCode);
+          // url.searchParams.append("couponCode", couponCode);
+          // url.searchParams.append("langCd", staticParams.langCd);
+          // url.searchParams.append("pid", staticParams.pid);
 
-          console.log(url.toString());
+          // console.log(url.toString());
 
-          const response = await fetch(url.toString(), {
-            method: "GET",
+          const response = await fetch(baseUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...staticParams,
+              couponCode: couponCode,
+            }),
           });
 
           const data = await response.json();
