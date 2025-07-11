@@ -3,5 +3,8 @@ export const Coupon = async (pid: string) => {
     method: "POST",
     body: JSON.stringify({ pid: pid }),
   });
-  return response.json();
+  if (response.status === 200) {
+    return response.json();
+  }
+  return null;
 };

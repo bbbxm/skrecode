@@ -22,6 +22,8 @@ import { useTransition, useState } from "react";
 import * as Z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Coupon } from "@/actions/coupon";
+import { FormError } from "./FormError";
+import { FormSuccess } from "./FormSuccess";
 
 export const CodeSchema = Z.z.object({
   pid: Z.z.string().nonempty(),
@@ -35,18 +37,25 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
     },
   });
   const [isPending, startTransition] = useTransition();
-  const [success, SetSuccess] =
-    useState<{ code: string; success: boolean }[]>();
-  const onSubmit = (values: Z.infer<typeof CodeSchema>) => {
-    // Another ways to use restfulapi
-    // axios.post("your/api/route",values).then().then()
 
-    SetSuccess([]);
+  const [error, setError] = useState<string | undefined>("");
+  const [success, SetSuccess] = useState<string | undefined>("");
+  const onSubmit = (values: Z.infer<typeof CodeSchema>) => {
+    setError("");
+    SetSuccess("");
 
     startTransition(() =>
-      Coupon(values.pid).then((data) => {
-        SetSuccess(data);
-      })
+      Coupon(values.pid)
+        .then((data) => {
+          if (data) {
+            SetSuccess("兑换成功");
+          } else {
+            setError("兑换失败");
+          }
+        })
+        .catch(() => {
+          setError("兑换失败");
+        })
     );
   };
   console.log(success);
@@ -77,6 +86,8 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
                   />
                 </>
               </div>
+              <FormError message={error} />
+              <FormSuccess message={success} />
               <Button className="w-full" type="submit" disabled={isPending}>
                 Submit
               </Button>
