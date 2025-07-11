@@ -72,7 +72,7 @@ export async function POST(request: Request) {
     };
 
     const results = await Promise.all(
-      couponCodes.map(async (couponCode: string) => {
+      couponCodes.reverse().map(async (couponCode: string) => {
         try {
           const url = new URL(baseUrl);
           url.searchParams.append("gameCode", staticParams.gameCode);
@@ -80,11 +80,10 @@ export async function POST(request: Request) {
           url.searchParams.append("langCd", staticParams.langCd);
           url.searchParams.append("pid", staticParams.pid);
 
+          console.log(url.toString());
+
           const response = await fetch(url.toString(), {
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
           });
 
           const data = await response.json();
