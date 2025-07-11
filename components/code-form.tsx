@@ -48,6 +48,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
       Coupon(values.pid)
         .then((data) => {
           if (data) {
+            console.log(data);
             SetSuccess("兑换成功");
           } else {
             setError("兑换失败");
@@ -58,7 +59,6 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
         })
     );
   };
-  console.log(success);
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
