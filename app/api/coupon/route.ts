@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 
 const couponCodes = [
-  "RINKARMA",
-  "GUILDWAR",
-  "7SENASENA7",
   "GOODLUCK",
   "THANKYOU",
   "LOVELYRUBY",
@@ -36,14 +33,21 @@ const couponCodes = [
   "INFOCODEX",
   "THEHOLYCROSS",
   "FUSEGETSPECIAL",
-  "ADVENTURER ",
+  "ADVENTURER",
   "NOHOSCHRONICLE",
   "VALKYRIE",
-  "LEGENDSRAID",
   "STORYEVENT",
   "SURPRISE",
+  "LEGENDSRAID",
   "INTOTHESENA",
+  "7SENASENA7",
+  "GUILDWAR",
+  "RINKARMA",
   "FORTAGNIA",
+  "SEVENVSDARK",
+  "777SENARE46.PUKIDANCE",
+  "HTRIBERANES",
+  "JJOLJACK",
 ];
 
 export async function POST(request: Request) {
@@ -57,11 +61,13 @@ export async function POST(request: Request) {
       );
     }
 
+    console.log("pid", pid);
+
     const baseUrl = "https://coupon.netmarble.com/api/coupon/reward";
     const staticParams = {
       gameCode: "tskgb",
       langCd: "ZH_CN",
-      pid: "73BDEB8CE4074B0D8BAD996B22953795",
+      pid: pid,
     };
 
     const results = await Promise.all(
@@ -83,7 +89,7 @@ export async function POST(request: Request) {
           const data = await response.json();
           return {
             couponCode,
-            success: data.httpStatus === 200,
+            success: data.errorCode === 200,
             data: data,
           };
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
