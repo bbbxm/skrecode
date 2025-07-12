@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
 const couponCodes = [
+  "RINKARMA",
+  "GUILDWAR",
+  "7SENASENA7",
   "GOODLUCK",
   "THANKYOU",
   "LOVELYRUBY",
@@ -36,19 +39,18 @@ const couponCodes = [
   "ADVENTURER",
   "NOHOSCHRONICLE",
   "VALKYRIE",
+  "LEGENDSRAID",
   "STORYEVENT",
   "SURPRISE",
-  "LEGENDSRAID",
   "INTOTHESENA",
-  "7SENASENA7",
-  "GUILDWAR",
-  "RINKARMA",
   "FORTAGNIA",
-  "SEVENVSDARK",
-  "777SENARE",
-  "PUKIDANCE",
-  "HTRIBERANES",
   "JJOLJACK",
+  "PUKIDANCE",
+  "777SENARE",
+  "SEVENVSDARK",
+  "HTRIBERANES",
+  "JULYSENAMONTH",
+  "LODING",
 ];
 
 export async function POST(request: Request) {
@@ -74,14 +76,6 @@ export async function POST(request: Request) {
     const results = await Promise.all(
       couponCodes.reverse().map(async (couponCode: string) => {
         try {
-          // const url = new URL(baseUrl);
-          // url.searchParams.append("gameCode", staticParams.gameCode);
-          // url.searchParams.append("couponCode", couponCode);
-          // url.searchParams.append("langCd", staticParams.langCd);
-          // url.searchParams.append("pid", staticParams.pid);
-
-          // console.log(url.toString());
-
           const response = await fetch(baseUrl, {
             method: "POST",
             headers: {
