@@ -77,36 +77,70 @@ export async function POST(request: Request) {
       pid: pid,
     };
 
-    const results = await Promise.all(
-      couponCodes.reverse().map(async (couponCode: string) => {
-        try {
-          const response = await fetch(baseUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...staticParams,
-              couponCode: couponCode,
-            }),
-          });
+    // const results = await Promise.all(
+    //   couponCodes.reverse().map(async (couponCode: string) => {
+    //     try {
+    //       const response = await fetch(baseUrl, {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //           ...staticParams,
+    //           couponCode: couponCode,
+    //         }),
+    //       });
 
-          const data = await response.json();
-          return {
-            couponCode,
-            success: data.errorCode === 200,
-            data: data,
-          };
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-          return {
-            couponCode,
-            success: false,
-            data: null,
-          };
-        }
-      })
-    );
+    //       const data = await response.json();
+    //       return {
+    //         couponCode,
+    //         success: data.errorCode === 200,
+    //         data: data,
+    //       };
+    //       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //     } catch (error) {
+    //       return {
+    //         couponCode,
+    //         success: false,
+    //         data: null,
+    //       };
+    //     }
+    //   })
+    // );
+
+    const results = [];
+
+    for (const couponCode of couponCodes.reverse()) {
+      try {
+        const response = await fetch(baseUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...staticParams,
+            couponCode: couponCode,
+          }),
+        });
+
+        const data = await response.json();
+        results.push({
+          couponCode,
+          success: data.errorCode === 200,
+          data: data,
+        });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        results.push({
+          couponCode,
+          success: false,
+          data: null,
+        });
+      }
+
+      // Wait for 1 second before the next request
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
 
     return NextResponse.json({ results }, { status: 200 });
   } catch (error) {
