@@ -41,6 +41,14 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
 
   const [error, setError] = useState<string | undefined>("");
   const [success, SetSuccess] = useState<string | undefined>("");
+  const [ret, setRet] = useState<
+    {
+      couponCode: string;
+      success: boolean;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: any;
+    }[]
+  >([]);
   const onSubmit = (values: Z.infer<typeof CodeSchema>) => {
     setError("");
     SetSuccess("");
@@ -50,6 +58,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
         .then((data) => {
           if (data) {
             console.log(data);
+            setRet(data.results);
             SetSuccess("兑换成功");
           } else {
             setError("兑换失败");
@@ -62,7 +71,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+      <Card className="bg-[url(/pnp71745980297126.jpg)] bg-fixed">
         <CardHeader>
           <CardTitle>Seven Knights Reverse Coupon</CardTitle>
           <CardDescription>Enter your pid below to coupon</CardDescription>
@@ -100,6 +109,37 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
           </Form>
         </CardContent>
       </Card>
+      {ret.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>兑换结果</CardTitle>
+          </CardHeader>
+          <CardContent className="max-h-56 overflow-y-scroll space-y-0.5">
+            {ret.map((item) => {
+              return (
+                <div
+                  key={item.couponCode}
+                  className={cn(
+                    "flex items-center justify-between text-sm",
+                    item.success ? " text-emerald-500" : "text-destructive"
+                  )}
+                >
+                  <span>{item.couponCode}</span>
+                  <span>
+                    {item.success
+                      ? "成功"
+                      : item.data.errorCode === 24004
+                      ? "已被使用"
+                      : item.data.errorCode === 24003
+                      ? "超过使用时限"
+                      : item.data.errorCode}
+                  </span>
+                </div>
+              );
+            })}
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

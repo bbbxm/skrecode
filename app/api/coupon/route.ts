@@ -139,7 +139,7 @@ export async function POST(request: Request) {
       }
 
       // Wait for 1 second before the next request
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
     return NextResponse.json({ results }, { status: 200 });
