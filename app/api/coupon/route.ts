@@ -76,6 +76,8 @@ const couponCodes = [
   "DEVELOPERNOTES",
   "POWERUPHERO",
   "ARENAGOLD",
+  "POOKIHAPPY",
+  "RAREHERO",
 ];
 
 export async function POST(request: Request) {
