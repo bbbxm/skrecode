@@ -52,6 +52,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
   const onSubmit = (values: Z.infer<typeof CodeSchema>) => {
     setError("");
     SetSuccess("");
+    setRet([]);
 
     startTransition(() =>
       Coupon(values.pid)
