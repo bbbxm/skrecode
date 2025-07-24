@@ -68,6 +68,14 @@ const couponCodes = [
   "PROFILE",
   "GACHAGETCHA",
   "SENAARENA",
+  "PETEGG",
+  "COMINGSOONPLATIN",
+  "MAYSLETTER",
+  "HOTCOSTUME",
+  "CHECKSTORAGE",
+  "DEVELOPERNOTES",
+  "POWERUPHERO",
+  "ARENAGOLD",
 ];
 
 export async function POST(request: Request) {
