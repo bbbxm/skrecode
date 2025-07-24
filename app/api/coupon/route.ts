@@ -55,6 +55,19 @@ const couponCodes = [
   "FUSEGETSPECIAL",
   "DARKKNIGHTS",
   "JULYSENAMONTH",
+  "CUTEECHO",
+  "ILOVEPICKUP",
+  "SKYGATE",
+  "NOMARLHERO",
+  "LETSDOSNEA",
+  "RANKUPGOGO",
+  "DAILYMISSIONS",
+  "SENA7SENA",
+  "BESTGUILD",
+  "PEPEPOPO",
+  "PROFILE",
+  "GACHAGETCHA",
+  "SENAARENA",
 ];
 
 export async function POST(request: Request) {

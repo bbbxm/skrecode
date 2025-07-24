@@ -71,7 +71,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="bg-[url(/pnp71745980297126.jpg)] bg-fixed">
+      <Card className="bg-[url(/pnp71745980297126.jpg)] bg-cover">
         <CardHeader>
           <CardTitle>Seven Knights Reverse Coupon</CardTitle>
           <CardDescription>Enter your pid below to coupon</CardDescription>
