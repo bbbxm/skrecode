@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const couponCodes = ["KYLEWKSTART", "CHAINOFKYLE"];
+const couponCodes = ["KYLEWKSTART", "CHAINOFKYLE", "KYLEGIFT"];
 
 export async function POST(request: Request) {
   try {
