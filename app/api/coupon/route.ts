@@ -1,14 +1,6 @@
 import { NextResponse } from "next/server";
 
-const couponCodes = [
-  "KYLEWKSTART",
-  "CHAINOFKYLE",
-  "KYLEGIFT",
-  "REBIRTHKYLE",
-  "LEGENDKYLE",
-  "KYLETEO4EVER",
-  "HAPPYKYLEWK",
-];
+const couponCodes = process.env.CODES ? process.env.CODES.split(",") : [];
 
 export async function POST(request: Request) {
   try {
