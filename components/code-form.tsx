@@ -130,7 +130,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
                     {item.success
                       ? "成功"
                       : item.data.errorCode === 24004
-                      ? "已被使用"
+                      ? "重复领取"
                       : item.data.errorCode === 24003
                       ? "超过使用时限"
                       : item.data.errorCode}
