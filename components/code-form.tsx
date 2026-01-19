@@ -24,7 +24,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Coupon } from "@/actions/coupon";
 import { FormError } from "./FormError";
 import { FormSuccess } from "./FormSuccess";
-import { LoaderCircle } from "lucide-react";
 import { Spinner } from "./ui/spinner";
 
 export const CodeSchema = Z.z.object({
@@ -98,8 +97,8 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
                   />
                 </>
               </div>
-              {/* <FormError message={error} />
-              <FormSuccess message={success} /> */}
+              <FormError message={error} />
+              <FormSuccess message={success} />
               <Button className="w-full" type="submit" disabled={isPending}>
                 {isPending ? (
                   <div className="flex gap-1 items-center ">
