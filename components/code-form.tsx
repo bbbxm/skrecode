@@ -25,6 +25,7 @@ import { Coupon } from "@/actions/coupon";
 import { FormError } from "./FormError";
 import { FormSuccess } from "./FormSuccess";
 import { LoaderCircle } from "lucide-react";
+import { Spinner } from "./ui/spinner";
 
 export const CodeSchema = Z.z.object({
   pid: Z.z.string().nonempty(),
@@ -72,10 +73,10 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="bg-[url(/pnp71745980297126.jpg)] bg-cover">
+      <Card className="bg-[url(/pnp71745980297126.jpg)] bg-cover  bg-center  bg-no-repeat">
         <CardHeader>
           <CardTitle>Seven Knights Re:birth Coupon</CardTitle>
-          <CardDescription>Enter your pid below to coupon</CardDescription>
+          <CardDescription>Enter your uid below to redeem</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -87,7 +88,7 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
                     name="pid"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>PID</FormLabel>
+                        <FormLabel>UID</FormLabel>
                         <FormControl>
                           <Input {...field} disabled={isPending} />
                         </FormControl>
@@ -97,11 +98,14 @@ export function CodeForm({ className, ...props }: React.ComponentProps<"div">) {
                   />
                 </>
               </div>
-              <FormError message={error} />
-              <FormSuccess message={success} />
+              {/* <FormError message={error} />
+              <FormSuccess message={success} /> */}
               <Button className="w-full" type="submit" disabled={isPending}>
                 {isPending ? (
-                  <LoaderCircle className="w-4 h-4 animate-spin" />
+                  <div className="flex gap-1 items-center ">
+                    <Spinner />
+                    Redeeming
+                  </div>
                 ) : (
                   <>Submit</>
                 )}
